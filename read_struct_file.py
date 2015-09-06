@@ -19,7 +19,7 @@ import scipy as sp
 
 class point_cloud(object):
     def __init__(self,dir,file):
-        self.time = file
+        self.time = file.split('.')[0]+file.split('.')[1]
 
         f = open(str(dir+'/'+file))
         line_list = f.readlines()
