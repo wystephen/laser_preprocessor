@@ -1,9 +1,10 @@
 #-*- coding:utf-8 -*-
 '''
-程序说明（Introduce）：
+程序说明（Introduce）：读取loam_tools fast_transfor 生成的中间数据文件。
 引用（References）：
 创建时间：’2015/9/6 19:52'
 编写与修改：
+1，连数据一起保存了~
 
 '''
 __author__ = 'WangYan'
@@ -34,8 +35,14 @@ class point_cloud(object):
             line = line_list[index].split(',')
             self.data[i,:] = line
 
-
-
+class read_data(object):
+    def __init__(self,dir):
+        self.pointclout_list = list()
+        file_list = os.listdir(dir)
+        for file_name in file_list:
+            self.pointclout_list.append(point_cloud(dir,file_name))
+    def ret_list(self):
+        return self.pointclout_list
 
 if __name__ == '__main__':
     file_list = os.listdir('save')
