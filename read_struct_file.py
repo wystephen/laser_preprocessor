@@ -17,6 +17,10 @@ import sys
 import numpy as np
 import scipy as sp
 
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
 class point_cloud(object):
     def __init__(self,dir,file):
         self.time = file.split('.')[0]+file.split('.')[1]
@@ -33,7 +37,19 @@ class point_cloud(object):
         for i in range(0,len(line_list)-3):
             index = i + 3
             line = line_list[index].split(',')
-            self.data[i,:] = line
+            #print line
+            self.data[i,0] = line[0]
+            self.data[i,1] = line[1]
+            self.data[i,2] = line[2]
+            self.data[i,3] = line[3].split('\\')[0]
+            #print self.data[i,:]
+    def draw(self):
+        glClear(GL_COLOR_BUFFER_BIT)
+        glBegin(GL_POINT)
+        for i in range(self.data.shape[0]):
+            glColor3f(1.0,0.0,1.0)
+            glVertex3f(self.data[i,1],self.data[i,2],self.data[i,3])
+        glEnd()
 
 class read_data(object):
     def __init__(self,dir):
